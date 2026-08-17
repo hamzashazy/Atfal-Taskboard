@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: #f6f8f7;
+  color: #1c2321;
+}
+
+/* simple shared form styles */
+.input {
+  width: 100%;
+  border: 1px solid #e2e8e4;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.9rem;
+}
+.input:focus {
+  outline: 2px solid #047857;
+  outline-offset: -1px;
+}
+.label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4c5652;
+  margin: 0.65rem 0 0.25rem;
+}
+.btn {
+  border-radius: 0.5rem;
+  background: #047857;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #065f46;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.btn-ghost {
+  background: #fff;
+  color: #4c5652;
+  border: 1px solid #e2e8e4;
+}
+.btn-ghost:hover {
+  background: #f6f8f7;
+}
+.btn-danger {
+  background: #d03b3b;
+}
+.btn-danger:hover {
+  background: #b91c1c;
+}
+.card {
+  background: #fff;
+  border: 1px solid #e2e8e4;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
