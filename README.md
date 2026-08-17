@@ -16,8 +16,8 @@ notifications via share links.
 ## Stack
 
 - **Next.js 15** (App Router, TypeScript, Tailwind v4) on **Vercel**
-- **Supabase Postgres** — currently the shared project `qpbjckuphrfjupqrtiai`,
-  fully isolated under `atfal_`-prefixed tables
+- **Supabase Postgres** — dedicated project `woygwtwrcunvcjrwbril`
+  (atfaalalburhan account, ap-south-1), tables prefixed `atfal_`
 - **Auth**: self-contained (bcrypt password hashes + session tokens in
   `atfal_users`/`atfal_sessions`); all writes go through SECURITY DEFINER SQL
   functions that validate the token. Row Level Security allows public read of
