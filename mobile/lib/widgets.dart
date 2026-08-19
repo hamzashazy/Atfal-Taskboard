@@ -32,7 +32,7 @@ class CategoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      _pill(categoryLabel[category] ?? category, C.emerald50, C.emerald900);
+      _pill(categoryLabel[category] ?? category, C.brand50, C.brand900);
 }
 
 Widget _pill(String text, Color bg, Color fg, {IconData? icon}) {
@@ -138,7 +138,7 @@ InputDecoration inputDecoration({String? hint, IconData? icon}) =>
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: C.emerald700, width: 2),
+        borderSide: const BorderSide(color: C.brand700, width: 2),
       ),
     );
 
@@ -153,7 +153,7 @@ void showSnack(BuildContext context, String message, {bool error = false}) {
         Expanded(child: Text(message)),
       ],
     ),
-    backgroundColor: error ? C.red700 : C.emerald800,
+    backgroundColor: error ? C.red700 : C.brand800,
   ));
 }
 
@@ -237,10 +237,10 @@ class EmptyState extends StatelessWidget {
             width: 52,
             height: 52,
             decoration: BoxDecoration(
-              color: C.emerald50,
+              color: C.brand50,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Icon(icon, color: C.emerald700, size: 26),
+            child: Icon(icon, color: C.brand700, size: 26),
           ),
           const SizedBox(height: 12),
           Text(title,
@@ -283,10 +283,10 @@ class SectionHeader extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-              color: C.emerald50,
+              color: C.brand50,
               borderRadius: BorderRadius.circular(9),
             ),
-            child: Icon(icon, size: 16, color: C.emerald700),
+            child: Icon(icon, size: 16, color: C.brand700),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -333,10 +333,10 @@ class StatTile extends StatelessWidget {
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              color: alert ? C.red50 : C.emerald50,
+              color: alert ? C.red50 : C.brand50,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, size: 17, color: alert ? C.red600 : C.emerald700),
+            child: Icon(icon, size: 17, color: alert ? C.red600 : C.brand700),
           ),
           const SizedBox(height: 10),
           Text(big,

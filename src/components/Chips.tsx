@@ -5,7 +5,7 @@ const STATUS_STYLE: Record<Status, string> = {
   pending: "bg-gray-100 text-gray-600",
   in_progress: "bg-blue-50 text-blue-700",
   submitted: "bg-amber-50 text-amber-700",
-  approved: "bg-emerald-50 text-emerald-700",
+  approved: "bg-brand-50 text-brand-700",
   returned: "bg-red-50 text-red-700",
 };
 
@@ -31,7 +31,7 @@ export function OverdueChip() {
 
 export function CategoryChip({ category }: { category: Category }) {
   return (
-    <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-xs text-emerald-900 whitespace-nowrap">
+    <span className="rounded-md bg-brand-50 px-2 py-0.5 text-xs text-brand-900 whitespace-nowrap">
       {CATEGORY_LABEL[category]}
     </span>
   );

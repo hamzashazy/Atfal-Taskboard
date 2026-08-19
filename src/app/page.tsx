@@ -11,7 +11,7 @@ const CELL: Record<Status, { letter: string; cls: string }> = {
   pending: { letter: "P", cls: "bg-gray-100 text-gray-500" },
   in_progress: { letter: "I", cls: "bg-blue-50 text-blue-700" },
   submitted: { letter: "S", cls: "bg-amber-50 text-amber-700" },
-  approved: { letter: "A", cls: "bg-emerald-50 text-emerald-700" },
+  approved: { letter: "A", cls: "bg-brand-50 text-brand-700" },
   returned: { letter: "R", cls: "bg-red-50 text-red-700" },
 };
 
@@ -165,7 +165,7 @@ export default function DashboardPage() {
                 <td className="w-32 p-2">
                   <div className="h-2 min-w-[90px] overflow-hidden rounded bg-gray-100">
                     <div
-                      className="h-full rounded-l bg-emerald-700"
+                      className="h-full rounded-l bg-brand-700"
                       style={{ width: `${Math.round(r.pct * 100)}%` }}
                     />
                   </div>

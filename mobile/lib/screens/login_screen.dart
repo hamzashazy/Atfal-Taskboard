@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen>
                                     TextSpan(
                                         text: 'Request access',
                                         style: TextStyle(
-                                            color: C.emerald700, fontWeight: FontWeight.w600)),
+                                            color: C.brand700, fontWeight: FontWeight.w600)),
                                   ],
                                 )),
                               ),

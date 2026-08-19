@@ -160,7 +160,7 @@ function TabBtn({
     <button
       onClick={onClick}
       className={`rounded-t-lg px-3.5 py-2 text-sm font-semibold ${
-        active ? "text-emerald-700 shadow-[inset_0_-2px_0_#047857]" : "text-gray-500"
+        active ? "text-brand-700 shadow-[inset_0_-2px_0_#a92425]" : "text-gray-500"
       }`}
     >
       {children}
@@ -204,7 +204,7 @@ function TaskCard({
       {t.attachment_url && (
         <p className="mt-1 text-sm">
           <a
-            className="text-emerald-700 underline"
+            className="text-brand-700 underline"
             href={t.attachment_url}
             target="_blank"
             rel="noopener noreferrer"
@@ -365,7 +365,7 @@ function ChangePassword({ token }: { token: string }) {
           minLength={6}
         />
         {msg && (
-          <p className={`mt-2 text-sm ${msg.ok ? "text-emerald-700" : "text-red-600"}`}>{msg.text}</p>
+          <p className={`mt-2 text-sm ${msg.ok ? "text-brand-700" : "text-red-600"}`}>{msg.text}</p>
         )}
         <button className="btn mt-2">Update password</button>
       </form>

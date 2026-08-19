@@ -15,7 +15,7 @@ function NavLink({ href, children, onClick }: { href: string; children: React.Re
       href={href}
       onClick={onClick}
       className={`rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors ${
-        active ? "bg-emerald-700 text-white" : "text-emerald-100 hover:bg-emerald-700/70"
+        active ? "bg-brand-700 text-white" : "text-brand-100 hover:bg-brand-700/70"
       }`}
     >
       {children}
@@ -32,7 +32,7 @@ export default function Nav() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <nav className="sticky top-0 z-40 bg-emerald-800 text-white shadow-sm">
+    <nav className="sticky top-0 z-40 bg-brand-800 text-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-2.5">
         <Link
           href={user ? "/" : "/login"}
@@ -56,15 +56,15 @@ export default function Nav() {
         <div className="hidden items-center gap-2 sm:flex">
           {user ? (
             <>
-              <span className="flex items-center gap-1.5 text-xs text-emerald-200">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-[11px] font-bold text-white">
+              <span className="flex items-center gap-1.5 text-xs text-brand-200">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-600 text-[11px] font-bold text-white">
                   {user.display_name.slice(0, 1).toUpperCase()}
                 </span>
                 {user.display_name}
               </span>
               <button
                 onClick={() => logout()}
-                className="rounded-md px-2.5 py-1.5 text-sm font-medium text-emerald-100 transition-colors hover:bg-emerald-700/70"
+                className="rounded-md px-2.5 py-1.5 text-sm font-medium text-brand-100 transition-colors hover:bg-brand-700/70"
               >
                 Logout
               </button>
@@ -76,7 +76,7 @@ export default function Nav() {
 
         {/* mobile hamburger */}
         <button
-          className="rounded-md p-1.5 text-emerald-100 hover:bg-emerald-700/70 sm:hidden"
+          className="rounded-md p-1.5 text-brand-100 hover:bg-brand-700/70 sm:hidden"
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -95,7 +95,7 @@ export default function Nav() {
 
       {/* mobile menu */}
       {open && (
-        <div className="animate-fade-up flex flex-col gap-1 border-t border-emerald-700 px-4 pb-3 pt-2 sm:hidden">
+        <div className="animate-fade-up flex flex-col gap-1 border-t border-brand-700 px-4 pb-3 pt-2 sm:hidden">
           {user && (
             <NavLink href="/" onClick={() => setOpen(false)}>
               Dashboard
@@ -113,12 +113,12 @@ export default function Nav() {
           )}
           {user ? (
             <>
-              <div className="mt-1 border-t border-emerald-700 pt-2 text-xs text-emerald-200">
+              <div className="mt-1 border-t border-brand-700 pt-2 text-xs text-brand-200">
                 Signed in as <b>{user.display_name}</b>
               </div>
               <button
                 onClick={() => logout()}
-                className="rounded-md px-2.5 py-1.5 text-left text-sm font-medium text-emerald-100 hover:bg-emerald-700/70"
+                className="rounded-md px-2.5 py-1.5 text-left text-sm font-medium text-brand-100 hover:bg-brand-700/70"
               >
                 Logout
               </button>

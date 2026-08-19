@@ -72,7 +72,7 @@ export default function SignupPage() {
       <h1 className="text-lg font-bold">Request access</h1>
       <p className="mt-1 text-sm text-gray-500">
         For city heads without an account yet. An admin reviews every request before it&apos;s active.{" "}
-        Already have one? <Link href="/login" className="text-emerald-700 underline">Sign in</Link>.
+        Already have one? <Link href="/login" className="text-brand-700 underline">Sign in</Link>.
       </p>
       <form onSubmit={submit}>
         <label className="label" htmlFor="name">

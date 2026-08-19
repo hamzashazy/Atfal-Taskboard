@@ -75,7 +75,7 @@ export default function LoginPage() {
       </form>
       <p className="mt-4 text-center text-sm text-gray-500">
         New city head?{" "}
-        <Link href="/signup" className="text-emerald-700 underline">
+        <Link href="/signup" className="text-brand-700 underline">
           Request access
         </Link>
       </p>

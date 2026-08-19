@@ -3,6 +3,15 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Atfal brand — sampled directly from the logo's background gradient */
+  --color-brand-50: #fceae6;
+  --color-brand-100: #f8d2c8;
+  --color-brand-200: #f0ac9c;
+  --color-brand-600: #d5532f;
+  --color-brand-700: #a92425;
+  --color-brand-800: #89181e;
+  --color-brand-900: #5c1015;
 }
 
 body {
@@ -29,8 +38,8 @@ body {
 }
 .input:focus {
   outline: none;
-  border-color: #047857;
-  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15);
+  border-color: #a92425;
+  box-shadow: 0 0 0 3px rgba(169, 36, 37, 0.15);
 }
 .label {
   display: block;
@@ -45,7 +54,7 @@ body {
   justify-content: center;
   gap: 0.4rem;
   border-radius: 0.5rem;
-  background: #047857;
+  background: #a92425;
   color: #fff;
   font-size: 0.875rem;
   font-weight: 600;
@@ -57,14 +66,14 @@ body {
     box-shadow 0.15s ease;
 }
 .btn:hover {
-  background: #065f46;
+  background: #89181e;
 }
 .btn:active {
   transform: scale(0.97);
 }
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.3);
+  box-shadow: 0 0 0 3px rgba(169, 36, 37, 0.3);
 }
 .btn:disabled {
   opacity: 0.55;

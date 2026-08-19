@@ -26,8 +26,8 @@ class AtfalApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = ColorScheme.fromSeed(
-      seedColor: C.emerald700,
-      primary: C.emerald700,
+      seedColor: C.brand700,
+      primary: C.brand700,
       surface: Colors.white,
     );
     return MaterialApp(
@@ -40,7 +40,7 @@ class AtfalApp extends StatelessWidget {
         scaffoldBackgroundColor: C.bg,
         splashFactory: InkSparkle.splashFactory,
         appBarTheme: const AppBarTheme(
-          backgroundColor: C.emerald800,
+          backgroundColor: C.brand800,
           foregroundColor: Colors.white,
           elevation: 0,
           scrolledUnderElevation: 0,
@@ -60,7 +60,7 @@ class AtfalApp extends StatelessWidget {
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
-            backgroundColor: C.emerald700,
+            backgroundColor: C.brand700,
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 13),
             textStyle: const TextStyle(fontWeight: FontWeight.w600),
@@ -79,14 +79,14 @@ class AtfalApp extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: C.emerald700,
+            foregroundColor: C.brand700,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
         chipTheme: ChipThemeData(
           backgroundColor: C.gray50,
-          selectedColor: C.emerald700,
+          selectedColor: C.brand700,
           labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
           secondaryLabelStyle:
               const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.white),
@@ -97,7 +97,7 @@ class AtfalApp extends StatelessWidget {
         ),
         navigationBarTheme: NavigationBarThemeData(
           backgroundColor: Colors.white,
-          indicatorColor: C.emerald50,
+          indicatorColor: C.brand50,
           surfaceTintColor: Colors.transparent,
           elevation: 3,
           shadowColor: Colors.black.withValues(alpha: 0.08),
@@ -106,12 +106,12 @@ class AtfalApp extends StatelessWidget {
                 fontSize: 11.5,
                 fontWeight: FontWeight.w600,
                 color: states.contains(WidgetState.selected)
-                    ? C.emerald800
+                    ? C.brand800
                     : C.gray500,
               )),
           iconTheme: WidgetStateProperty.resolveWith((states) => IconThemeData(
                 color: states.contains(WidgetState.selected)
-                    ? C.emerald800
+                    ? C.brand800
                     : C.gray500,
               )),
         ),
@@ -130,7 +130,7 @@ class AtfalApp extends StatelessWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(22))),
         ),
         progressIndicatorTheme: const ProgressIndicatorThemeData(
-          color: C.emerald700,
+          color: C.brand700,
         ),
         checkboxTheme: CheckboxThemeData(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),

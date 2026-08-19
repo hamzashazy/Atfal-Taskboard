@@ -220,7 +220,7 @@ class _AdminScreenState extends State<AdminScreen> {
     final cityById = {for (final c in _cities) c.id: c};
     return RefreshIndicator(
       onRefresh: _load,
-      color: C.emerald700,
+      color: C.brand700,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(12),
@@ -250,7 +250,7 @@ class _AdminScreenState extends State<AdminScreen> {
             children: [
               TextSpan(
                   text: c?.name ?? '?',
-                  style: const TextStyle(color: C.emerald700)),
+                  style: const TextStyle(color: C.brand700)),
             ],
           )),
           const SizedBox(height: 8),
@@ -281,12 +281,12 @@ class _AdminScreenState extends State<AdminScreen> {
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.link_rounded, size: 15, color: C.emerald700),
+                        Icon(Icons.link_rounded, size: 15, color: C.brand700),
                         SizedBox(width: 4),
                         Text('Open proof',
                             style: TextStyle(
                                 fontSize: 13.5,
-                                color: C.emerald700,
+                                color: C.brand700,
                                 fontWeight: FontWeight.w600)),
                       ],
                     ),
@@ -394,7 +394,7 @@ class _AdminScreenState extends State<AdminScreen> {
     }
     return RefreshIndicator(
       onRefresh: _load,
-      color: C.emerald700,
+      color: C.brand700,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(12),
@@ -518,7 +518,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget _citiesTab(SessionUser s) {
     return RefreshIndicator(
       onRefresh: _load,
-      color: C.emerald700,
+      color: C.brand700,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(12),
@@ -562,11 +562,11 @@ class _AdminScreenState extends State<AdminScreen> {
                       height: 38,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: c.active ? C.emerald50 : C.gray100,
+                        color: c.active ? C.brand50 : C.gray100,
                         borderRadius: BorderRadius.circular(11),
                       ),
                       child: Icon(Icons.location_city_rounded,
-                          size: 18, color: c.active ? C.emerald700 : C.gray400),
+                          size: 18, color: c.active ? C.brand700 : C.gray400),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
@@ -689,7 +689,7 @@ class _AdminScreenState extends State<AdminScreen> {
         await _load();
         await _loadUsers();
       },
-      color: C.emerald700,
+      color: C.brand700,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(12),
@@ -774,7 +774,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           height: 36,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: u.role == 'admin' ? C.emerald50 : C.blue50,
+                            color: u.role == 'admin' ? C.brand50 : C.blue50,
                             borderRadius: BorderRadius.circular(11),
                           ),
                           child: Text(
@@ -783,7 +783,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                   : '?',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: u.role == 'admin' ? C.emerald700 : C.blue700)),
+                                  color: u.role == 'admin' ? C.brand700 : C.blue700)),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -877,7 +877,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget _signupsTab(SessionUser s) {
     return RefreshIndicator(
       onRefresh: _loadSignups,
-      color: C.emerald700,
+      color: C.brand700,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(12),
@@ -904,7 +904,7 @@ class _AdminScreenState extends State<AdminScreen> {
             text: '${r.fullName} — ',
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             children: [
-              TextSpan(text: r.cityName, style: const TextStyle(color: C.emerald700)),
+              TextSpan(text: r.cityName, style: const TextStyle(color: C.brand700)),
             ],
           )),
           const SizedBox(height: 6),
@@ -1183,11 +1183,11 @@ class _NewTaskTabState extends State<_NewTaskTab> {
                 const Divider(height: 28),
                 Row(
                   children: [
-                    const Icon(Icons.check_circle_rounded, size: 18, color: C.emerald700),
+                    const Icon(Icons.check_circle_rounded, size: 18, color: C.brand700),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(_doneMsg,
-                          style: const TextStyle(fontSize: 14, color: C.emerald700)),
+                          style: const TextStyle(fontSize: 14, color: C.brand700)),
                     ),
                   ],
                 ),

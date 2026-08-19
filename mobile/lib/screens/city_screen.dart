@@ -242,7 +242,7 @@ class _CityScreenState extends State<CityScreen> {
       {bool editable = false, required IconData emptyIcon, required String empty}) {
     return RefreshIndicator(
       onRefresh: _load,
-      color: C.emerald700,
+      color: C.brand700,
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(12),
@@ -294,12 +294,12 @@ class _CityScreenState extends State<CityScreen> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.attach_file_rounded, size: 15, color: C.emerald700),
+                    Icon(Icons.attach_file_rounded, size: 15, color: C.brand700),
                     SizedBox(width: 4),
                     Text('Task attachment / form',
                         style: TextStyle(
                             fontSize: 13.5,
-                            color: C.emerald700,
+                            color: C.brand700,
                             fontWeight: FontWeight.w600)),
                   ],
                 ),
@@ -487,7 +487,7 @@ class _ProfileSectionState extends State<_ProfileSection> {
           Row(
             children: [
               Icon(_incomplete ? Icons.warning_amber_rounded : Icons.badge_outlined,
-                  size: 18, color: _incomplete ? C.amber600 : C.emerald700),
+                  size: 18, color: _incomplete ? C.amber600 : C.brand700),
               const SizedBox(width: 8),
               Text(_incomplete ? 'Complete your profile' : 'Your profile',
                   style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
@@ -592,7 +592,7 @@ class _ChangePasswordState extends State<_ChangePassword> {
         children: [
           const Row(
             children: [
-              Icon(Icons.lock_reset_rounded, size: 18, color: C.emerald700),
+              Icon(Icons.lock_reset_rounded, size: 18, color: C.brand700),
               SizedBox(width: 8),
               Text('Change password',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
@@ -614,7 +614,7 @@ class _ChangePasswordState extends State<_ChangePassword> {
               child: Text(_msg!,
                   style: TextStyle(
                       fontSize: 14,
-                      color: _ok ? C.emerald700 : C.red600)),
+                      color: _ok ? C.brand700 : C.red600)),
             ),
           const SizedBox(height: 12),
           FilledButton(

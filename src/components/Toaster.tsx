@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast, type Toast } from "@/lib/toast";
 
 const STYLE: Record<Toast["kind"], string> = {
-  success: "border-l-emerald-600 text-emerald-900",
+  success: "border-l-brand-600 text-brand-900",
   error: "border-l-red-600 text-red-900",
   info: "border-l-blue-600 text-blue-900",
 };

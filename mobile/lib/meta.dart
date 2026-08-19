@@ -29,12 +29,14 @@ abstract final class C {
   static const bg = Color(0xFFF6F8F7);
   static const text = Color(0xFF1C2321);
   static const border = Color(0xFFE2E8E4);
-  static const emerald50 = Color(0xFFECFDF5);
-  static const emerald100 = Color(0xFFD1FAE5);
-  static const emerald600 = Color(0xFF059669);
-  static const emerald700 = Color(0xFF047857);
-  static const emerald800 = Color(0xFF065F46);
-  static const emerald900 = Color(0xFF064E3B);
+  // Atfal brand — sampled directly from the logo's background gradient.
+  static const brand50 = Color(0xFFFCEAE6);
+  static const brand100 = Color(0xFFF8D2C8);
+  static const brand200 = Color(0xFFF0AC9C);
+  static const brand600 = Color(0xFFD5532F);
+  static const brand700 = Color(0xFFA92425);
+  static const brand800 = Color(0xFF89181E);
+  static const brand900 = Color(0xFF5C1015);
   static const blue50 = Color(0xFFEFF6FF);
   static const blue700 = Color(0xFF1D4ED8);
   static const amber50 = Color(0xFFFFFBEB);
@@ -53,11 +55,12 @@ abstract final class C {
   static const gray500 = Color(0xFF6B7280);
   static const gray600 = Color(0xFF4B5563);
 
-  /// Soft header gradient used behind the login hero and section banners.
+  /// Soft header gradient used behind the login hero and section banners —
+  /// mirrors the logo's own background gradient (deep maroon → orange).
   static const heroGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [emerald800, emerald700, emerald600],
+    colors: [brand800, brand700, brand600],
   );
 }
 
@@ -91,7 +94,7 @@ const statusStyle = <String, StatusStyle>{
   'pending': StatusStyle(C.gray100, C.gray600, 'P'),
   'in_progress': StatusStyle(C.blue50, C.blue700, 'I'),
   'submitted': StatusStyle(C.amber50, C.amber700, 'S'),
-  'approved': StatusStyle(C.emerald50, C.emerald700, 'A'),
+  'approved': StatusStyle(C.brand50, C.brand700, 'A'),
   'returned': StatusStyle(C.red50, C.red700, 'R'),
 };
 

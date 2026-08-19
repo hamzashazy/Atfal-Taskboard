@@ -115,7 +115,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ? const SkeletonList(cards: 4)
           : RefreshIndicator(
               onRefresh: _load,
-              color: C.emerald700,
+              color: C.brand700,
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
@@ -313,7 +313,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     value: r.pct,
                     minHeight: 7,
                     backgroundColor: C.gray100,
-                    color: C.emerald700,
+                    color: C.brand700,
                   ),
                 ),
               ],

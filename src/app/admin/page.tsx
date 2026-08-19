@@ -103,7 +103,7 @@ export default function AdminPage() {
             key={key}
             onClick={() => setTab(key)}
             className={`rounded-t-lg px-3.5 py-2 text-sm font-semibold ${
-              tab === key ? "text-emerald-700 shadow-[inset_0_-2px_0_#047857]" : "text-gray-500"
+              tab === key ? "text-brand-700 shadow-[inset_0_-2px_0_#a92425]" : "text-gray-500"
             }`}
           >
             {label}
@@ -275,7 +275,7 @@ function NewTask({ me, cities, onCreated }: { me: SessionUser; cities: City[]; o
       </form>
       {doneMsg && (
         <div className="mt-3 border-t border-gray-200 pt-3">
-          <p className="text-sm text-emerald-700">{doneMsg}</p>
+          <p className="text-sm text-brand-700">{doneMsg}</p>
           <a
             href={waLink}
             target="_blank"
@@ -342,7 +342,7 @@ function ReviewQueue({
         return (
           <div key={a.id} className="card mb-3">
             <h3 className="font-semibold">
-              {t?.title ?? "?"} — <span className="text-emerald-700">{c?.name ?? "?"}</span>
+              {t?.title ?? "?"} — <span className="text-brand-700">{c?.name ?? "?"}</span>
             </h3>
             <div className="my-1.5 flex flex-wrap items-center gap-2">
               {t && <CategoryChip category={t.category} />}
@@ -359,7 +359,7 @@ function ReviewQueue({
             {a.proof_url ? (
               <p className="mt-1 text-sm">
                 <a
-                  className="text-emerald-700 underline"
+                  className="text-brand-700 underline"
                   href={a.proof_url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -832,7 +832,7 @@ function Signups({
       {requests.map((r) => (
         <div key={r.id} className="card mb-3">
           <h3 className="font-semibold">
-            {r.full_name} — <span className="text-emerald-700">{r.city_name}</span>
+            {r.full_name} — <span className="text-brand-700">{r.city_name}</span>
           </h3>
           <div className="mt-1 text-sm text-gray-600">
             {r.email} · {r.contact_no}
