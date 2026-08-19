@@ -16,6 +16,8 @@ export interface SessionUser {
   role: Role;
   city_id: number | null;
   city_name: string | null;
+  email: string | null;
+  contact_no: string | null;
 }
 
 export interface City {
@@ -66,4 +68,20 @@ export interface UserRow {
   city_id: number | null;
   city_name: string | null;
   active: boolean;
+  email: string | null;
+  contact_no: string | null;
+}
+
+export type SignupStatus = "pending" | "approved" | "rejected";
+
+export interface SignupRequest {
+  id: string;
+  full_name: string;
+  email: string;
+  contact_no: string;
+  city_id: number;
+  city_name: string;
+  status: SignupStatus;
+  review_note: string | null;
+  created_at: string;
 }

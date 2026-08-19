@@ -6,6 +6,7 @@ import { rpc } from "@/lib/api";
 import { fmtDate, isOverdue } from "@/lib/meta";
 import { Session } from "@/lib/session";
 import { sb } from "@/lib/supabase";
+import { toast } from "@/lib/toast";
 import type { Assignment, SessionUser, Task } from "@/lib/types";
 
 type Tab = "todo" | "done" | "account";
@@ -16,6 +17,8 @@ export default function CityPage() {
   const [tasks, setTasks] = useState<Map<string, Task>>(new Map());
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [openSubmit, setOpenSubmit] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<string | null>(null);
 
   useEffect(() => {
     const s = Session.get();
@@ -32,12 +35,14 @@ export default function CityPage() {
       sb.from("atfal_assignments").select("*").eq("city_id", cityId),
     ]);
     if (t.error || a.error) {
-      alert("Failed to load: " + (t.error ?? a.error)!.message);
+      toast.error("Failed to load: " + (t.error ?? a.error)!.message);
+      setLoading(false);
       return;
     }
     const byId = new Map((t.data as Task[]).map((x) => [x.id, x]));
     setTasks(byId);
     setAssignments((a.data as Assignment[]).filter((x) => byId.has(x.task_id)));
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -63,6 +68,7 @@ export default function CityPage() {
 
   async function setStatus(id: string, status: string, note?: string | null, proof?: string | null) {
     if (!me) return;
+    setBusyId(id);
     try {
       await rpc("atfal_update_status", {
         p_token: me.token,
@@ -73,12 +79,16 @@ export default function CityPage() {
       });
       setOpenSubmit(null);
       await load(me.city_id!);
+      if (status === "submitted") toast.success("Task submitted for review.");
+      else if (status === "in_progress") toast.success("Marked as in progress.");
     } catch (ex) {
-      alert((ex as Error).message);
+      toast.error((ex as Error).message);
     }
+    setBusyId(null);
   }
 
   if (!me) return null;
+  if (loading) return <CitySkeleton />;
 
   return (
     <div>
@@ -94,7 +104,10 @@ export default function CityPage() {
           History
         </TabBtn>
         <TabBtn active={tab === "account"} onClick={() => setTab("account")}>
-          My Account
+          My Account{" "}
+          {(!me.email || !me.contact_no) && (
+            <span className="ml-1 inline-block h-2 w-2 rounded-full bg-red-600" title="Profile incomplete" />
+          )}
         </TabBtn>
       </div>
 
@@ -108,6 +121,7 @@ export default function CityPage() {
               a={a}
               t={tasks.get(a.task_id)!}
               editable
+              busy={busyId === a.id}
               openSubmit={openSubmit === a.id}
               onStart={() => setStatus(a.id, "in_progress")}
               onToggleSubmit={() => setOpenSubmit(openSubmit === a.id ? null : a.id)}
@@ -123,7 +137,12 @@ export default function CityPage() {
           done.map((a) => <TaskCard key={a.id} a={a} t={tasks.get(a.task_id)!} />)
         ))}
 
-      {tab === "account" && <ChangePassword token={me.token} />}
+      {tab === "account" && (
+        <div className="flex flex-col gap-4">
+          <ProfileSection me={me} onSaved={(u) => setMe(u)} />
+          <ChangePassword token={me.token} />
+        </div>
+      )}
     </div>
   );
 }
@@ -153,6 +172,7 @@ function TaskCard({
   a,
   t,
   editable,
+  busy,
   openSubmit,
   onStart,
   onToggleSubmit,
@@ -161,6 +181,7 @@ function TaskCard({
   a: Assignment;
   t: Task;
   editable?: boolean;
+  busy?: boolean;
   openSubmit?: boolean;
   onStart?: () => void;
   onToggleSubmit?: () => void;
@@ -210,11 +231,11 @@ function TaskCard({
       {editable && (
         <div className="mt-2.5 flex flex-wrap gap-2">
           {a.status === "pending" && (
-            <button className="btn" onClick={onStart}>
-              ▶ Start
+            <button className="btn" onClick={onStart} disabled={busy}>
+              {busy ? <span className="spinner" /> : "▶"} Start
             </button>
           )}
-          <button className="btn bg-amber-600 hover:bg-amber-700" onClick={onToggleSubmit}>
+          <button className="btn bg-amber-600 hover:bg-amber-700" onClick={onToggleSubmit} disabled={busy}>
             📤 Submit{a.status === "returned" ? " again" : ""}
           </button>
         </div>
@@ -232,15 +253,74 @@ function TaskCard({
             onChange={(e) => setProof(e.target.value)}
           />
           <div className="mt-2.5 flex gap-2">
-            <button className="btn" onClick={() => onSubmit?.(note || null, proof || null)}>
-              ✅ Confirm submit
+            <button className="btn" onClick={() => onSubmit?.(note || null, proof || null)} disabled={busy}>
+              {busy ? <span className="spinner" /> : "✅"} Confirm submit
             </button>
-            <button className="btn btn-ghost" onClick={onToggleSubmit}>
+            <button className="btn btn-ghost" onClick={onToggleSubmit} disabled={busy}>
               Cancel
             </button>
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function ProfileSection({ me, onSaved }: { me: SessionUser; onSaved: (u: SessionUser) => void }) {
+  const [email, setEmail] = useState(me.email ?? "");
+  const [contactNo, setContactNo] = useState(me.contact_no ?? "");
+  const [busy, setBusy] = useState(false);
+  const incomplete = !me.email || !me.contact_no;
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const updated = await rpc<{ email: string | null; contact_no: string | null }>(
+        "atfal_update_profile",
+        { p_token: me.token, p_email: email, p_contact_no: contactNo },
+      );
+      const next = { ...me, ...updated };
+      Session.set(next);
+      onSaved(next);
+      toast.success("Profile updated.");
+    } catch (ex) {
+      toast.error((ex as Error).message);
+    }
+    setBusy(false);
+  }
+
+  return (
+    <div className="card max-w-sm">
+      <h3 className="font-semibold">
+        {incomplete ? "⚠️ Complete your profile" : "Your profile"}
+      </h3>
+      {incomplete && (
+        <p className="mt-1 text-sm text-gray-500">
+          Add your email and masool number so the markaz can reach you directly.
+        </p>
+      )}
+      <form onSubmit={submit}>
+        <label className="label">Email</label>
+        <input
+          type="email"
+          className="input"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="you@example.com"
+        />
+        <label className="label">Masool number</label>
+        <input
+          type="tel"
+          className="input"
+          value={contactNo}
+          onChange={(e) => setContactNo(e.target.value)}
+          placeholder="03xx-xxxxxxx"
+        />
+        <button className="btn mt-3" disabled={busy}>
+          {busy ? <span className="spinner" /> : null} Save profile
+        </button>
+      </form>
     </div>
   );
 }
@@ -289,6 +369,22 @@ function ChangePassword({ token }: { token: string }) {
         )}
         <button className="btn mt-2">Update password</button>
       </form>
+    </div>
+  );
+}
+
+function CitySkeleton() {
+  return (
+    <div className="animate-fade-up">
+      <div className="skeleton mb-3 h-6 w-56" />
+      <div className="mb-4 flex gap-2">
+        <div className="skeleton h-8 w-20" />
+        <div className="skeleton h-8 w-20" />
+        <div className="skeleton h-8 w-24" />
+      </div>
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="skeleton mb-3 h-28 w-full rounded-xl" />
+      ))}
     </div>
   );
 }

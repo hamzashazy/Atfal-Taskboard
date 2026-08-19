@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "264719467458",
+    "project_id": "atfal-taskboard",
+    "storage_bucket": "atfal-taskboard.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264719467458:android:3475a613afce849892cc5b",
+        "android_client_info": {
+          "package_name": "com.atfaltech.atfal_taskboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLKfp_WG19FRWjO1xrMbnQ8ejTdkg6l-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { StatusChip } from "@/components/Chips";
 import { CATEGORIES, CATEGORY_LABEL, STATUS_LABEL, fmtDate, fmtTime, isOverdue } from "@/lib/meta";
+import { Session } from "@/lib/session";
 import { sb } from "@/lib/supabase";
 import type { Activity, Assignment, Category, City, Status, Task } from "@/lib/types";
 
@@ -21,8 +22,20 @@ export default function DashboardPage() {
   const [activity, setActivity] = useState<Activity[]>([]);
   const [category, setCategory] = useState<"" | Category>("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    if (!Session.get()) {
+      window.location.href = "/login";
+      return;
+    }
+    setAuthChecked(true);
+  }, []);
 
   const load = useCallback(async () => {
+    setRefreshing(true);
     const [c, t, a, act] = await Promise.all([
       sb.from("atfal_cities").select("*").eq("active", true).order("name"),
       sb.from("atfal_tasks").select("*").eq("archived", false).order("created_at", { ascending: false }),
@@ -32,19 +45,25 @@ export default function DashboardPage() {
     const err = c.error ?? t.error ?? a.error ?? act.error;
     if (err) {
       setError(err.message);
+      setLoading(false);
+      setRefreshing(false);
       return;
     }
     setCities(c.data as City[]);
     setTasks(t.data as Task[]);
     setAssignments(a.data as Assignment[]);
     setActivity(act.data as Activity[]);
+    setError("");
+    setLoading(false);
+    setRefreshing(false);
   }, []);
 
   useEffect(() => {
+    if (!authChecked) return;
     load();
     const iv = setInterval(load, 5 * 60 * 1000);
     return () => clearInterval(iv);
-  }, [load]);
+  }, [authChecked, load]);
 
   const visibleTasks = useMemo(
     () => (category ? tasks.filter((t) => t.category === category) : tasks),
@@ -87,16 +106,37 @@ export default function DashboardPage() {
 
   const pct = model.totals.count ? Math.round((model.totals.approved / model.totals.count) * 100) : 0;
 
+  if (!authChecked || loading) return <DashboardSkeleton />;
+
   return (
     <div>
-      {error && <p className="card mb-3 text-sm text-red-600">Failed to load: {error}</p>}
+      {error && (
+        <p className="card mb-3 flex items-center justify-between text-sm text-red-600">
+          <span>⚠️ Failed to load: {error}</span>
+          <button className="btn btn-ghost px-2.5 py-1 text-xs" onClick={load}>
+            Retry
+          </button>
+        </p>
+      )}
+
+      <div className="mb-1 flex items-center justify-between">
+        <h1 className="text-lg font-bold">Public Dashboard</h1>
+        <button
+          className="btn btn-ghost px-2.5 py-1 text-xs"
+          onClick={load}
+          disabled={refreshing}
+          title="Refresh now"
+        >
+          {refreshing ? <span className="spinner" /> : "↻"} Refresh
+        </button>
+      </div>
 
       {/* stat tiles */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Tile big={String(visibleTasks.length)} cap="Active tasks" />
-        <Tile big={`${pct}%`} cap="Overall completion" />
-        <Tile big={String(model.totals.submitted)} cap="Awaiting review" />
-        <Tile big={String(model.totals.overdue)} cap="Overdue" alert={model.totals.overdue > 0} />
+        <Tile icon="📌" big={String(visibleTasks.length)} cap="Active tasks" />
+        <Tile icon="📈" big={`${pct}%`} cap="Overall completion" />
+        <Tile icon="⏳" big={String(model.totals.submitted)} cap="Awaiting review" />
+        <Tile icon="🚨" big={String(model.totals.overdue)} cap="Overdue" alert={model.totals.overdue > 0} />
       </div>
 
       {/* leaderboard */}
@@ -260,11 +300,31 @@ export default function DashboardPage() {
   );
 }
 
-function Tile({ big, cap, alert }: { big: string; cap: string; alert?: boolean }) {
+function Tile({ icon, big, cap, alert }: { icon: string; big: string; cap: string; alert?: boolean }) {
   return (
-    <div className="card">
+    <div className="card hover:shadow-md">
+      <div className="mb-1 text-lg">{icon}</div>
       <div className={`text-3xl font-bold ${alert ? "text-red-600" : ""}`}>{big}</div>
       <div className="text-xs text-gray-500">{cap}</div>
+    </div>
+  );
+}
+
+function DashboardSkeleton() {
+  return (
+    <div className="animate-fade-up">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} className="card">
+            <div className="skeleton mb-2 h-8 w-14" />
+            <div className="skeleton h-3 w-20" />
+          </div>
+        ))}
+      </div>
+      <div className="skeleton mt-6 mb-2 h-6 w-48" />
+      <div className="skeleton h-40 w-full rounded-xl" />
+      <div className="skeleton mt-6 mb-2 h-6 w-56" />
+      <div className="skeleton h-64 w-full rounded-xl" />
     </div>
   );
 }

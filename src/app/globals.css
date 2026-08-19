@@ -10,6 +10,11 @@ body {
   color: #1c2321;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d9d5 transparent;
+}
+
 /* simple shared form styles */
 .input {
   width: 100%;
@@ -18,10 +23,14 @@ body {
   background: #fff;
   padding: 0.5rem 0.7rem;
   font-size: 0.9rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 .input:focus {
-  outline: 2px solid #047857;
-  outline-offset: -1px;
+  outline: none;
+  border-color: #047857;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15);
 }
 .label {
   display: block;
@@ -31,6 +40,10 @@ body {
   margin: 0.65rem 0 0.25rem;
 }
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   border-radius: 0.5rem;
   background: #047857;
   color: #fff;
@@ -38,13 +51,25 @@ body {
   font-weight: 600;
   padding: 0.55rem 1rem;
   cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
 }
 .btn:hover {
   background: #065f46;
 }
+.btn:active {
+  transform: scale(0.97);
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.3);
+}
 .btn:disabled {
-  opacity: 0.5;
+  opacity: 0.55;
   cursor: default;
+  transform: none;
 }
 .btn-ghost {
   background: #fff;
@@ -65,4 +90,70 @@ body {
   border: 1px solid #e2e8e4;
   border-radius: 0.75rem;
   padding: 1rem;
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* loading spinner, for inline use inside buttons/pages */
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex: none;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* skeleton loading blocks */
+.skeleton {
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #e9edec 25%, #f3f5f4 37%, #e9edec 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* toast slide-in */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-toast-in {
+  animation: toast-in 0.2s ease-out;
+}
+
+/* gentle fade/slide entrance for page content */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.25s ease-out;
 }

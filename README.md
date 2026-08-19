@@ -8,10 +8,15 @@ notifications via share links.
 
 | Route | Who | What |
 |---|---|---|
-| `/` | Everyone (no login) | Public dashboard: city leaderboard, task × city matrix, activity feed |
+| `/` | Signed-in users | Dashboard: city leaderboard, task × city matrix, activity feed |
 | `/login` | — | Username/password sign-in |
 | `/city` | City heads | Their city's task list: start, submit with note + proof link, history, change password |
 | `/admin` | Markaz admins | Create tasks (assign to one/many/all cities), review & approve/return submissions, manage tasks, cities, users |
+
+## Mobile app
+
+`mobile/` contains a Flutter port of all four portals for Android & iOS, using
+the same Supabase backend and accounts — see `mobile/README.md`.
 
 ## Stack
 

@@ -38,15 +38,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="card mx-auto mt-[8vh] w-full max-w-sm">
+    <div className="card animate-fade-up mx-auto mt-[8vh] w-full max-w-sm">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/atfal-logo-icon.png" alt="Atfal" className="mb-2 h-12 w-12 rounded-xl object-cover" />
       <h1 className="text-lg font-bold">Sign in</h1>
-      <p className="mt-1 text-sm text-gray-500">
-        City heads and admins only. Viewing the{" "}
-        <Link href="/" className="text-emerald-700 underline">
-          dashboard
-        </Link>{" "}
-        needs no login.
-      </p>
+      <p className="mt-1 text-sm text-gray-500">City heads and admins only.</p>
       <form onSubmit={submit}>
         <label className="label" htmlFor="u">
           Username
@@ -74,9 +70,15 @@ export default function LoginPage() {
         />
         <p className="mt-2 min-h-5 text-sm text-red-600">{error}</p>
         <button className="btn w-full" disabled={busy}>
-          {busy ? "Signing in…" : "Login"}
+          {busy ? <span className="spinner" /> : null} {busy ? "Signing in…" : "Login"}
         </button>
       </form>
+      <p className="mt-4 text-center text-sm text-gray-500">
+        New city head?{" "}
+        <Link href="/signup" className="text-emerald-700 underline">
+          Request access
+        </Link>
+      </p>
     </div>
   );
 }
